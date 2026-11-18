@@ -9,8 +9,9 @@
 - 無。
 
 ## 3. 等使用者決定
-1. 下一步功能點子：N4 單字、例句、平假名手寫筆順、助詞／文法小測驗、PWA 離線＋加到主畫面、進度匯出／匯入（換手機不會丟）。
-2. Vercel 上其他專案搬 Cloudflare：他說先不要。評估過：food-chosing、moon-bbq 好搬（純靜態），mazu-online 1 個 API，ptt／tommy-blog／COMEANC13 有伺服器端功能、不建議。
+1. 課程 `docs/CURRICULUM.md`（16 週，零基礎到 N4）寫好了，等他看。要不要照文末「App 要補的功能」開始做（建議先做課程地圖＋假名分行學習）。
+2. 其他點子：N4 單字、例句、平假名手寫筆順、助詞／文法小測驗、PWA 離線＋加到主畫面、進度匯出／匯入（換手機不會丟）。
+3. Vercel 上其他專案搬 Cloudflare：他說先不要。評估過：food-chosing、moon-bbq 好搬（純靜態），mazu-online 1 個 API，ptt／tommy-blog／COMEANC13 有伺服器端功能、不建議。
 
 ## 4. 下次要看
 - 請他用 iPhone 實際用一輪：五十音測驗、單字複習（發音在 iPhone Safari 要點過一次才會出聲）。
@@ -19,6 +20,7 @@
 - 沿用 Focus Island 的規則（繁中、手機優先、直接做），已寫進 `CLAUDE.md`。
 
 ## 6. 最近做完
+- 11-18 課程設計 `docs/CURRICULUM.md`。
 - 11-18 上線 Cloudflare Pages＋自訂網域 nihongo.huangyanming.com。
 - 11-18 v0.1.0：五十音表＋測驗、N5 單字 SRS、單字表、首頁統計；CLAUDE.md＋takeover／handoff skill。
 

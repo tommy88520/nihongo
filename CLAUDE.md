@@ -34,6 +34,7 @@
 - 拗音／ぢづ：測驗干擾選項用 romaji 排除同音（ぢ=じ=ji、づ=ず=zu）。
 
 ## 程式在哪
+- 課程設計 `docs/CURRICULUM.md`（16 週）：新功能、單字、文法照它的順序做；使用者完全零基礎。
 - `src/data/kana.ts` 五十音表（清音、濁音、拗音）；`src/data/words.ts` N5 單字（分類、假名、漢字、中文）。
 - `src/lib/store.ts` 進度狀態＋簡化 SM-2（`grade`、`previewInterval`、連續天數）；`lib/queue.ts` 今日待複習／新字；`lib/speak.ts` 發音。
 - `src/views/`：`Home`（統計、7 天長條、每日新字數）、`Kana`（表）、`KanaQuiz`（測驗）、`Review`（單字卡，鍵盤 空白鍵／1–4）、`Words`（單字表搜尋）。
