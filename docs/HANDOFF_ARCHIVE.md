@@ -1,5 +1,13 @@
 # 交接存檔（新的在最上面）
 
+## 🚩 2026-11-18 夜：發音改預錄音檔
+- 他問五十音在哪學（底部「學假名」），接著反映「點了沒發音」「聲音超小」，後來說明是用電腦版。
+- 查到：Mac Chrome 用 Kyoko，單一假名 TTS 只有約 0.1 秒，網頁也無法超過系統音量。先修了 iOS 常見問題（cancel 後馬上 speak 會被吃、utterance 被回收、`navigator.audioSession='playback'` 不受靜音鍵影響）。
+- 他問有沒有套件：好的日文 TTS 都要金鑰（鐵律不接），瀏覽器內跑的品質更差；決定用 Mac `say -v Kyoko` 預先產生音檔。
+- 腳本 `scripts/gen-audio.ts`：WAV → 切前後靜音、峰值拉到 -1dB → afconvert AAC 64k m4a；檔名＝每字 Unicode 碼（`lib/audioName.ts`），清單 `src/data/audioManifest.json`。單一假名唸兩次（約 0.44 秒）。
+- 驗證：本機手機尺寸點卡片確認 `play()` 成功播 m4a；正式站第一課 5 個音檔 200。
+- 他問為什麼唸兩次，已解釋，未決定要不要改。
+
 ## 🚩 2026-11-18 晚：第一個 session 結束交接
 - 這個專案是在 Focus Island 的 session 裡開的；使用者說交接後這個 session 不再處理 nihongo，之後在 nihongo 資料夾開新 session「接手」。
 - 驗證狀況：手機尺寸看過首頁、假名課介紹卡、小考答錯畫面、五十音表、五十音測驗、單字複習卡；**沒走完一整課到過關解鎖**，單字表頁沒截圖。
