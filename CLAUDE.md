@@ -15,7 +15,8 @@
 1. **單字 id 不能改、不能重排**：`src/data/words.ts` 每個字的 `id`（`w001`…）是 SRS 進度的 key，改了使用者的進度就對不上。新單字只能加在最後、給新 id。
 2. **localStorage 格式要相容**：key 是 `nihongo:v1`（`lib/store.ts`），載入時跟預設值合併；加欄位要有預設值，不相容的改動要換 key 並寫搬移。
    讀寫 localStorage 一律包 try/catch（私密模式會丟例外）。
-3. 發音用瀏覽器內建的 Web Speech API（`lib/speak.ts`，`ja-JP`），不要接要金鑰的 TTS 服務。
+3. **repo 是公開的**（GitHub `tommy88520/nihongo`）：文件、commit 不寫機密、不寫其他專案或機器的細節。
+4. 發音用瀏覽器內建的 Web Speech API（`lib/speak.ts`，`ja-JP`），不要接要金鑰的 TTS 服務。
 
 ## 使用者的規則
 - 一律繁體中文（含進度回報）；回覆短，先講結論和要他做什麼。

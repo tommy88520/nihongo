@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: 交接——使用者說「交接」、要離開／換機器／結束 session 時用。HANDOFF.md 照 7 段整份改寫（≤4KB）、細節接到 docs/HANDOFF_ARCHIVE.md 最上面、commit（有 remote 就 push）。
+description: 交接——使用者說「交接」、要離開／換機器／結束 session 時用。HANDOFF.md 照 7 段整份改寫（≤4KB）、細節接到 docs/HANDOFF_ARCHIVE.md 最上面、commit＋push。
 ---
 
 # 交接（日文練習帳）
@@ -17,4 +17,4 @@ description: 交接——使用者說「交接」、要離開／換機器／結�
    - 細節（過程、取捨、原話、試過的做法）寫成 `## 🚩 YYYY-MM-DD HH:MM：標題` 插在 `docs/HANDOFF_ARCHIVE.md` 最上面。
 4. **文件跟程式走**：改了資料格式、單字 id、localStorage key → 更新 `CLAUDE.md` 鐵律；新增檔案／頁面 → `CLAUDE.md`「程式在哪」。
 5. **檢查**：7 段都在、≤4KB；第 1 段 commit 對得上；每個要求都有落點；沒寫 token、其他專案或機器的細節。
-6. `git add -A && git commit -m "docs: 交接（<一句話>）"`，有 remote 就 `git push`。回報使用者 ≤6 行：第 2、3、4 段重點。
+6. `git add -A && git commit -m "docs: 交接（<一句話>）"` && git push`。回報使用者 ≤6 行：第 2、3、4 段重點。
