@@ -18,7 +18,8 @@
 2. **localStorage 格式要相容**：key 是 `nihongo:v1`（`lib/store.ts`），載入時跟預設值合併；加欄位要有預設值，不相容的改動要換 key 並寫搬移。
    讀寫 localStorage 一律包 try/catch（私密模式會丟例外）。
 3. **repo 是公開的**（GitHub `tommy88520/nihongo`）：文件、commit 不寫機密、不寫其他專案或機器的細節。
-4. 發音用瀏覽器內建的 Web Speech API（`lib/speak.ts`，`ja-JP`），不要接要金鑰的 TTS 服務。
+4. 發音播預錄音檔 `public/audio/*.m4a`（`npm run audio`＝`scripts/gen-audio.ts`，只能在 Mac 跑，用內建 Kyoko 產生、音量正規化；單一假名唸兩次）。
+   沒音檔的字才退回瀏覽器 Web Speech API（`lib/speak.ts`）。**加新單字／假名後要跑 `npm run audio` 一起 commit**。不要接要金鑰的 TTS 服務。
 
 ## 使用者的規則
 - **他完全零基礎，連五十音都不會**：任何功能都不能假設他已經會；先教再考，說明用中文、附注音近似音。

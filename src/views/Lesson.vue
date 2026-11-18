@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import type { Kana } from '../data/kana'
 import { lessonById, origin, PASS, previousKana, soundTip, zhuyin } from '../data/lessons'
 import { nextLesson } from '../lib/progress'
-import { speak } from '../lib/speak'
+import { preload, speak } from '../lib/speak'
 import { state, today } from '../lib/store'
 
 const route = useRoute()
@@ -38,6 +38,7 @@ function reset() {
   phase.value = 'intro'
   i.value = 0
   picked.value = null
+  if (lesson.value) preload(lesson.value.kana.map((k) => k.hira))
   if (cur.value) setTimeout(() => speak(cur.value!.hira), 300)
 }
 onMounted(reset)
@@ -161,6 +162,7 @@ const goNext = computed(() => nextLesson())
           怎麼記：從漢字「<span class="jp text-base font-semibold">{{ origin[cur[lesson.script]] }}</span>」{{ lesson.script === 'hira' ? '的草書變來' : '取一部分變來' }}
         </span>
         <span class="mt-4 text-sm text-ink/40">🔊 點卡片再聽一次</span>
+        <span v-if="i === 0" class="text-xs text-ink/40">沒聲音或太小聲？把電腦／手機的音量調大</span>
       </button>
       <div class="grid grid-cols-2 gap-3">
         <button class="rounded-2xl border border-black/10 bg-white py-4 disabled:opacity-30" :disabled="i === 0" @click="i--, speak(cur!.hira)">上一個</button>
