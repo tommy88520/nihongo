@@ -3,13 +3,14 @@
 > 每個 session 都整份載入，只放每次都用得到的。現況在 `HANDOFF.md`（**接手先讀**）；過去的交接 grep `docs/HANDOFF_ARCHIVE.md`。
 
 學日文的個人 web app：五十音表＋測驗、N5 單字卡（間隔重複 SRS）、日文發音。Vue 3＋TS（`<script setup>`）＋Vite＋Tailwind v4＋vue-router（hash 模式）。
-**純前端、沒有後端**，進度存在瀏覽器 localStorage。
+**純前端、沒有後端**，進度存在瀏覽器 localStorage。正式網址 https://nihongo.huangyanming.com 。
 
 - **接手**：「接手」／`/takeover`；**交接**：「交接」／`/handoff`（`.claude/skills/`）。Claude 的記憶每台機器各自的，跨機器的規則寫這份。
 - 指令：`npm run dev`、`npm run build`（`vue-tsc -b` 型別檢查＋打包到 `dist/`）。沒有測試、沒有 lint。
   這台的 node 是 nvm 裝的，非互動 shell 要先 `export PATH=~/.nvm/versions/node/v24.22.2/bin:$PATH`。
 - 版號：`package.json` 的 version，發版 bump＋`git tag vX.Y.Z`。
-- 部署：還沒決定（見 `HANDOFF.md`）。決定後把步驟寫在這裡。
+- **部署**：Cloudflare Pages（專案 `nihongo`，接 GitHub）。**push 到 `master` 就自動建置上線**（`npm run build` → `dist`，環境變數 `NODE_VERSION=22`）。
+  push 完 1～2 分鐘到正式網址實際看一次；壞了就 revert 再 push。設定改動要使用者在 Cloudflare 後台動手。
 
 ## 鐵律
 1. **單字 id 不能改、不能重排**：`src/data/words.ts` 每個字的 `id`（`w001`…）是 SRS 進度的 key，改了使用者的進度就對不上。新單字只能加在最後、給新 id。
