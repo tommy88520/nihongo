@@ -16,13 +16,14 @@ interface State {
   daily: Record<string, number> // YYYY-MM-DD → 當天複習次數
   newPerDay: number
   kanaBest: Record<string, number> // 測驗設定 → 最佳正確率
+  lessons: Record<string, number> // 假名課 id → 最佳正確率（第一次就答對的比例）
 }
 
 const KEY = 'nihongo:v1'
 const DAY = 86_400_000
 
 function load(): State {
-  const fallback: State = { cards: {}, daily: {}, newPerDay: 10, kanaBest: {} }
+  const fallback: State = { cards: {}, daily: {}, newPerDay: 10, kanaBest: {}, lessons: {} }
   try {
     const raw = localStorage.getItem(KEY)
     return raw ? { ...fallback, ...JSON.parse(raw) } : fallback

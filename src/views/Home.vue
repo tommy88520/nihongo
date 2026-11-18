@@ -3,6 +3,10 @@ import { computed } from 'vue'
 import { words } from '../data/words'
 import { dueWords, newWords, learnedCount, matureCount } from '../lib/queue'
 import { state, streak, today } from '../lib/store'
+import { hiraganaDone, nextLesson } from '../lib/progress'
+
+const next = computed(() => nextLesson())
+const kanaFirst = computed(() => !hiraganaDone())
 
 const due = computed(() => dueWords().length)
 const fresh = computed(() => newWords().length)
@@ -44,22 +48,29 @@ const week = computed(() => {
     </div>
 
     <RouterLink
-      to="/review"
-      class="block rounded-2xl bg-shu p-5 text-white shadow-md active:scale-[0.98] transition"
+      v-if="next"
+      :to="`/learn/${next.id}`"
+      class="block rounded-2xl p-5 shadow-md transition active:scale-[0.98]"
+      :class="kanaFirst ? 'bg-shu text-white' : 'bg-white'"
     >
-      <div class="text-lg font-bold">開始複習單字</div>
-      <div class="mt-1 text-sm text-white/85">
-        <template v-if="due + fresh > 0">待複習 {{ due }} 張・新單字 {{ fresh }} 張</template>
-        <template v-else>今天的份量完成了！🎉</template>
+      <div class="text-sm" :class="kanaFirst ? 'text-white/80' : 'text-ink/50'">
+        {{ kanaFirst && !state.lessons['hira-1'] ? '從這裡開始 👇' : '學假名・下一課' }}
       </div>
+      <div class="mt-1 text-lg font-bold">{{ next.title }}</div>
+      <div class="jp mt-1 text-2xl tracking-widest">{{ next.kana.map((k) => k[next!.script]).join(' ') }}</div>
     </RouterLink>
 
     <RouterLink
-      to="/kana/quiz"
-      class="block rounded-2xl bg-white p-5 shadow-sm active:scale-[0.98] transition"
+      to="/review"
+      class="block rounded-2xl p-5 shadow-sm transition active:scale-[0.98]"
+      :class="kanaFirst ? 'bg-white' : 'bg-shu text-white shadow-md'"
     >
-      <div class="text-lg font-bold"><span class="jp">あア</span> 五十音測驗</div>
-      <div class="mt-1 text-sm text-ink/50">看假名選拼音，或看拼音選假名</div>
+      <div class="text-lg font-bold">複習單字</div>
+      <div class="mt-1 text-sm" :class="kanaFirst ? 'text-ink/50' : 'text-white/85'">
+        <template v-if="kanaFirst">建議先學完平假名（10 課）再開始背單字</template>
+        <template v-else-if="due + fresh > 0">待複習 {{ due }} 張・新單字 {{ fresh }} 張</template>
+        <template v-else>今天的份量完成了！🎉</template>
+      </div>
     </RouterLink>
 
     <section class="rounded-2xl bg-white p-4 shadow-sm">

@@ -13,13 +13,15 @@
   push 完 1～2 分鐘到正式網址實際看一次；壞了就 revert 再 push。設定改動要使用者在 Cloudflare 後台動手。
 
 ## 鐵律
-1. **單字 id 不能改、不能重排**：`src/data/words.ts` 每個字的 `id`（`w001`…）是 SRS 進度的 key，改了使用者的進度就對不上。新單字只能加在最後、給新 id。
+1. **單字 id、假名課 id 不能改**：假名課 `hira-1`…`kata-14`（`data/lessons.ts`）是過關進度的 key。
+   `src/data/words.ts` 每個字的 `id`（`w001`…）是 SRS 進度的 key，改了使用者的進度就對不上。新單字只能加在最後、給新 id。
 2. **localStorage 格式要相容**：key 是 `nihongo:v1`（`lib/store.ts`），載入時跟預設值合併；加欄位要有預設值，不相容的改動要換 key 並寫搬移。
    讀寫 localStorage 一律包 try/catch（私密模式會丟例外）。
 3. **repo 是公開的**（GitHub `tommy88520/nihongo`）：文件、commit 不寫機密、不寫其他專案或機器的細節。
 4. 發音用瀏覽器內建的 Web Speech API（`lib/speak.ts`，`ja-JP`），不要接要金鑰的 TTS 服務。
 
 ## 使用者的規則
+- **他完全零基礎，連五十音都不會**：任何功能都不能假設他已經會；先教再考，說明用中文、附注音近似音。
 - 一律繁體中文（含進度回報）；回覆短，先講結論和要他做什麼。
 - 交代的事做得到就直接做，不要列步驟叫他做；只有要他帳號的才請他動手。
 - **手機優先**（他常用 iPhone，~375–402px 寬）：按鈕列不能爆版，觸控目標夠大，不能只有 icon 沒字；
@@ -35,6 +37,7 @@
 
 ## 程式在哪
 - 課程設計 `docs/CURRICULUM.md`（16 週）：新功能、單字、文法照它的順序做；使用者完全零基礎。
+- `src/data/lessons.ts` 假名課（平／片假名各 14 課：清音一行一課、濁音、拗音）＋來源漢字、注音近似音、發音提醒；`lib/progress.ts` 解鎖規則（前一課 ≥80% 才開，片假名要平假名清音學完）。
 - `src/data/kana.ts` 五十音表（清音、濁音、拗音）；`src/data/words.ts` N5 單字（分類、假名、漢字、中文）。
 - `src/lib/store.ts` 進度狀態＋簡化 SM-2（`grade`、`previewInterval`、連續天數）；`lib/queue.ts` 今日待複習／新字；`lib/speak.ts` 發音。
-- `src/views/`：`Home`（統計、7 天長條、每日新字數）、`Kana`（表）、`KanaQuiz`（測驗）、`Review`（單字卡，鍵盤 空白鍵／1–4）、`Words`（單字表搜尋）。
+- `src/views/`：`Learn`（課程列表）、`Lesson`（一課：認字→小考，錯的排到最後重考）、`Home`（統計、7 天長條、每日新字數）、`Kana`（表）、`KanaQuiz`（測驗）、`Review`（單字卡，鍵盤 空白鍵／1–4）、`Words`（單字表搜尋）。

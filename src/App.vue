@@ -1,7 +1,15 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+function isActive(to: string) {
+  if (to === '/') return route.path === '/'
+  if (to === '/learn') return route.path.startsWith('/learn') || route.path.startsWith('/kana')
+  return route.path.startsWith(to)
+}
 const tabs = [
   { to: '/', label: '首頁', icon: '🏠' },
-  { to: '/kana', label: '五十音', icon: 'あ' },
+  { to: '/learn', label: '學假名', icon: 'あ' },
   { to: '/review', label: '複習', icon: '🃏' },
   { to: '/words', label: '單字', icon: '📖' },
 ]
@@ -21,8 +29,8 @@ const tabs = [
           v-for="t in tabs"
           :key="t.to"
           :to="t.to"
-          class="flex flex-col items-center gap-0.5 py-2 text-xs text-ink/50"
-          exact-active-class="!text-shu"
+          class="flex flex-col items-center gap-0.5 py-2 text-xs"
+          :class="isActive(t.to) ? 'text-shu' : 'text-ink/50'"
         >
           <span class="jp text-xl leading-6">{{ t.icon }}</span>
           {{ t.label }}
