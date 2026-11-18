@@ -1,32 +1,38 @@
-# 交接（2026-11-18——v0.2.0 假名分課教學）
+# 交接（2026-11-18——v0.2.0 假名分課教學上線）
 
 > 固定 7 段、整份改寫、**≤4KB**。細節在 `docs/HANDOFF_ARCHIVE.md`（grep）。步驟見 `.claude/skills/`。
 
 ## 1. 版本
-- v0.2.0，GitHub `tommy88520/nihongo`（公開）。已上線 https://nihongo.huangyanming.com （Cloudflare Pages，push 到 master 自動部署）。
+- **v0.2.0**（`2afd7b5`），GitHub `tommy88520/nihongo`（公開），已上線 https://nihongo.huangyanming.com （正式站查過 200、是新版）。
+- Cloudflare Pages 專案 `nihongo`：push 到 `master` 自動部署（約 30 秒～1 分鐘）。另有 `nihongo-9nf.pages.dev`，關不掉，不用管。
 
 ## 2. 進行中
 - 無。
 
 ## 3. 等使用者決定
-1. 課程 `docs/CURRICULUM.md`（16 週）寫好了，但他說連五十音都不會，先做了假名分課教學。之後照文末「App 要補的功能」繼續（下一個：課程地圖、單字帶例句）。
-2. 其他點子：N4 單字、例句、平假名手寫筆順、助詞／文法小測驗、PWA 離線＋加到主畫面、進度匯出／匯入（換手機不會丟）。
-3. Vercel 上其他專案搬 Cloudflare：他說先不要。評估過：food-chosing、moon-bbq 好搬（純靜態），mazu-online 1 個 API，ptt／tommy-blog／COMEANC13 有伺服器端功能、不建議。
+1. 假名學完之後的下一步：照 `docs/CURRICULUM.md` 文末「App 要補的功能」。建議順序：**課程地圖**（首頁顯示今天第幾週第幾天要學什麼）→ **單字補例句、跟課程解鎖** → 促音／長音聽力練習 → 文法卡 → 動詞變化。他還在學平假名，不急。
+2. 小功能隨時可做：進度匯出／匯入（換手機不會丟，很小）、PWA 離線＋加到主畫面。
+3. Vercel 上其他專案搬 Cloudflare：他說先不要。評估過：food-chosing、moon-bbq 好搬（純靜態），mazu-online 1 個 API，ptt／tommy-blog／COMEANC13 有伺服器端功能，不建議搬。
 
 ## 4. 下次要看
-- 請他從首頁「從這裡開始」上平假名第 1 課：注音近似音、來源漢字的說法有沒有幫助；聽音選字在 iPhone 上發音正不正常。
-- 請他用 iPhone 實際用一輪：五十音測驗、單字複習（發音在 iPhone Safari 要點過一次才會出聲）。
+- **一整課做到過關 → 下一課解鎖**沒有實際跑完（只看過介紹卡、答錯畫面），接手先用手機尺寸走完一課確認。
+- 問他平假名第 1 課的感覺：注音近似音、來源漢字有沒有幫助；iPhone 上聽音選字的發音正不正常（要先點一下畫面才會出聲）。
+- 他學到哪：看他回報第幾課，太難／太簡單就調整每課字數或過關門檻（`PASS` 在 `data/lessons.ts`）。
 
 ## 5. 使用者新規則
-- 他完全零基礎（連五十音都不會），功能要先教再考（已寫進 `CLAUDE.md`）。
-- 沿用 Focus Island 的規則（繁中、手機優先、直接做），已寫進 `CLAUDE.md`。
+- **他完全零基礎（連五十音都不會）**：任何功能先教再考，說明用中文、附注音近似音（已寫進 `CLAUDE.md`）。
+- 沿用 Focus Island 的規則（繁中、手機優先、直接做、不加測試），已寫進 `CLAUDE.md`。
+- 這個專案要在自己的 session 做（在 nihongo 資料夾開 Claude，說「接手」），不要混在 Focus Island 的 session 裡。
 
 ## 6. 最近做完
-- 11-18 v0.2.0：假名分課教學（平／片假名各 14 課，先認字再小考，80% 解鎖下一課），首頁改成零基礎先學假名。
-- 11-18 課程設計 `docs/CURRICULUM.md`。
-- 11-18 上線 Cloudflare Pages＋自訂網域 nihongo.huangyanming.com。
-- 11-18 v0.1.0：五十音表＋測驗、N5 單字 SRS、單字表、首頁統計；CLAUDE.md＋takeover／handoff skill。
+- 11-18 v0.2.0：假名分課教學（平／片假名各 14 課，先認字再小考，80% 解鎖），首頁平假名學完前把學假名放最上面。
+- 11-18 16 週課程設計 `docs/CURRICULUM.md`。
+- 11-18 上線 Cloudflare Pages＋自訂網域。
+- 11-18 v0.1.0：五十音表＋測驗、N5 單字 127 個 SRS、單字表、首頁統計；CLAUDE.md＋takeover／handoff skill。
 
 ## 7. 已知問題
-- 進度只在這個瀏覽器的 localStorage，清資料或換裝置就沒了（還沒有匯出／同步）。
+- 進度只存在瀏覽器 localStorage，清資料或換裝置就沒了（還沒有匯出／同步）。
+- 注音近似音是程式照羅馬拼音拼出來的，只是入門參考（拗音、ら行不準），以發音為準。
+- 濁音、拗音課沒有「來源漢字」（只有清音有），介紹卡上那行會隱藏。
+- 本機設好新網域後，DNS 可能還記著「查不到」：用 `curl --resolve` 或 `.pages.dev` 網址看。
 - 沒有測試（使用者不要）。
