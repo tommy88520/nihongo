@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #fdf6ee;
+  --color-ink: #2b2623;
+  --color-shu: #c2410c;
+  --font-jp: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
+}
+
+html, body { background: var(--color-paper); color: var(--color-ink); }
+body { font-family: system-ui, "PingFang TC", "Noto Sans TC", sans-serif; -webkit-tap-highlight-color: transparent; }
+.jp { font-family: var(--font-jp); }

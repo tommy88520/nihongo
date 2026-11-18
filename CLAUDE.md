@@ -1,0 +1,37 @@
+# 日文練習帳（nihongo）
+
+> 每個 session 都整份載入，只放每次都用得到的。現況在 `HANDOFF.md`（**接手先讀**）；過去的交接 grep `docs/HANDOFF_ARCHIVE.md`。
+
+學日文的個人 web app：五十音表＋測驗、N5 單字卡（間隔重複 SRS）、日文發音。Vue 3＋TS（`<script setup>`）＋Vite＋Tailwind v4＋vue-router（hash 模式）。
+**純前端、沒有後端**，進度存在瀏覽器 localStorage。
+
+- **接手**：「接手」／`/takeover`；**交接**：「交接」／`/handoff`（`.claude/skills/`）。Claude 的記憶每台機器各自的，跨機器的規則寫這份。
+- 指令：`npm run dev`、`npm run build`（`vue-tsc -b` 型別檢查＋打包到 `dist/`）。沒有測試、沒有 lint。
+  這台的 node 是 nvm 裝的，非互動 shell 要先 `export PATH=~/.nvm/versions/node/v24.22.2/bin:$PATH`。
+- 版號：`package.json` 的 version，發版 bump＋`git tag vX.Y.Z`。
+- 部署：還沒決定（見 `HANDOFF.md`）。決定後把步驟寫在這裡。
+
+## 鐵律
+1. **單字 id 不能改、不能重排**：`src/data/words.ts` 每個字的 `id`（`w001`…）是 SRS 進度的 key，改了使用者的進度就對不上。新單字只能加在最後、給新 id。
+2. **localStorage 格式要相容**：key 是 `nihongo:v1`（`lib/store.ts`），載入時跟預設值合併；加欄位要有預設值，不相容的改動要換 key 並寫搬移。
+   讀寫 localStorage 一律包 try/catch（私密模式會丟例外）。
+3. 發音用瀏覽器內建的 Web Speech API（`lib/speak.ts`，`ja-JP`），不要接要金鑰的 TTS 服務。
+
+## 使用者的規則
+- 一律繁體中文（含進度回報）；回覆短，先講結論和要他做什麼。
+- 交代的事做得到就直接做，不要列步驟叫他做；只有要他帳號的才請他動手。
+- **手機優先**（他常用 iPhone，~375–402px 寬）：按鈕列不能爆版，觸控目標夠大，不能只有 icon 沒字；
+  做完用手機尺寸（chrome-devtools emulate `390x844x3,mobile,touch`）實際截圖看過再交。不要等他提醒。
+- 畫面醜他會在意：統一用 `style.css` 的 `paper／ink／shu`（朱色）色票和圓角卡片風格。
+- 不要加自動化測試（他說過不需要）。
+
+## 坑
+- 日文字要套 `.jp` class（Hiragino Sans／Noto Sans JP），不然在中文字型下會用中文字形顯示漢字。
+- iPhone 點到字小於 16px 的輸入框會自動放大，輸入框一律 `text-base` 以上。
+- 底部 tab bar 是 fixed，`main` 有 `pb-28`；新頁面的底部按鈕別被擋到，要考慮 `safe-area-inset-bottom`。
+- 拗音／ぢづ：測驗干擾選項用 romaji 排除同音（ぢ=じ=ji、づ=ず=zu）。
+
+## 程式在哪
+- `src/data/kana.ts` 五十音表（清音、濁音、拗音）；`src/data/words.ts` N5 單字（分類、假名、漢字、中文）。
+- `src/lib/store.ts` 進度狀態＋簡化 SM-2（`grade`、`previewInterval`、連續天數）；`lib/queue.ts` 今日待複習／新字；`lib/speak.ts` 發音。
+- `src/views/`：`Home`（統計、7 天長條、每日新字數）、`Kana`（表）、`KanaQuiz`（測驗）、`Review`（單字卡，鍵盤 空白鍵／1–4）、`Words`（單字表搜尋）。
